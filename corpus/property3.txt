@@ -1,0 +1,7 @@
+Property ID: P103
+Location: Vijayawada
+Type: Apartment
+BHK: 2 BHK
+Price: 38 Lakhs
+Amenities: Lift, Security, Power Backup
+Description: Affordable 2 BHK apartment in Vijayawada near the city center and public transport.

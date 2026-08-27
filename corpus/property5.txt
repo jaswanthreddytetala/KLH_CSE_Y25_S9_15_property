@@ -1,0 +1,7 @@
+Property ID: P105
+Location: Bangalore
+Type: Apartment
+BHK: 3 BHK
+Price: 62 Lakhs
+Amenities: Parking, Gym, Lift, Security
+Description: Well-connected 3 BHK apartment in Bangalore with covered parking and modern facilities.

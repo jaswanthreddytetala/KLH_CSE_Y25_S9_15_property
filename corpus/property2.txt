@@ -1,0 +1,7 @@
+Property ID: P102
+Location: Bangalore
+Type: Villa
+BHK: 3 BHK
+Price: 85 Lakhs
+Amenities: Parking, Swimming Pool, Garden, Security
+Description: Modern furnished villa in Bangalore with a private garden and swimming pool.

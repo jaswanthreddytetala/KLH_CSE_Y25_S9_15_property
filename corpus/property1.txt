@@ -1,0 +1,7 @@
+Property ID: P101
+Location: Hyderabad
+Type: Apartment
+BHK: 2 BHK
+Price: 45 Lakhs
+Amenities: Parking, Lift, Security
+Description: Spacious 2 BHK apartment available in Hyderabad, close to schools and offices.
