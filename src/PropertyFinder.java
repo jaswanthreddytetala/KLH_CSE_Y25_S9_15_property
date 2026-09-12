@@ -3,39 +3,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PropertyFinder {
-
-    // Naive pattern search: compare the pattern at every possible text position.
-    // The returned value is the number of occurrences in the text.
-    public static int naiveSearch(String text, String pattern) {
-        int matchCount = 0;
-        int textLength = text.length();
-        int patternLength = pattern.length();
-
-        if (patternLength == 0 || patternLength > textLength) {
-            return 0;
-        }
-
-        for (int textIndex = 0; textIndex <= textLength - patternLength; textIndex++) {
-            int patternIndex = 0;
-
-            while (patternIndex < patternLength
-                    && text.charAt(textIndex + patternIndex) == pattern.charAt(patternIndex)) {
-                patternIndex++;
-            }
-
-            if (patternIndex == patternLength) {
-                matchCount++;
-            }
-        }
-
-        return matchCount;
-    }
 
     // KMP (Knuth-Morris-Pratt) pattern search algorithm
     // More efficient than naive search by avoiding redundant comparisons
@@ -113,8 +87,8 @@ public class PropertyFinder {
         }
 
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("=== Property Finder: Pattern Search with Naive & KMP Algorithms ===");
-            System.out.println("Search property documents by location, price, BHK, or amenity.");
+            System.out.println("=== Property Finder: KMP Pattern Search ===");
+            System.out.println("Search properties by location, price, BHK, or amenity.");
             System.out.println("Type 'exit' to close the program.\n");
 
             while (true) {
@@ -131,70 +105,15 @@ public class PropertyFinder {
                     continue;
                 }
 
-                System.out.println("\nSelect algorithm:");
-                System.out.println("1. Naive Search");
-                System.out.println("2. KMP Search");
-                System.out.println("3. Both (Compare performance)");
-                System.out.print("Enter your choice (1-3): ");
-                
-                String choice = scanner.nextLine().trim();
-                
-                if (choice.equals("1")) {
-                    searchCorpusNaive(corpusPath, pattern);
-                } else if (choice.equals("2")) {
-                    searchCorpusKMP(corpusPath, pattern);
-                } else if (choice.equals("3")) {
-                    searchCorpusBoth(corpusPath, pattern);
-                } else {
-                    System.out.println("Invalid choice. Please enter 1, 2, or 3.\n");
-                    continue;
-                }
-                
+                searchCorpusKMP(corpusPath, pattern, scanner);
                 System.out.println();
             }
         }
     }
 
-    private static void searchCorpusNaive(Path corpusPath, String pattern) {
+    private static void searchCorpusKMP(Path corpusPath, String pattern, Scanner scanner) {
         String lowerPattern = pattern.toLowerCase();
-        int matchingProperties = 0;
-        int totalMatches = 0;
-
-        try (Stream<Path> files = Files.list(corpusPath)) {
-            List<Path> propertyFiles = files
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.getFileName().toString().endsWith(".txt"))
-                    .sorted()
-                    .collect(Collectors.toList());
-
-            System.out.println("\n--- Naive Search Results ---");
-
-            for (Path propertyFile : propertyFiles) {
-                String document = Files.readString(propertyFile, StandardCharsets.UTF_8);
-                int fileMatches = naiveSearch(document.toLowerCase(), lowerPattern);
-
-                if (fileMatches > 0) {
-                    System.out.println(propertyFile.getFileName() + " (" + fileMatches + " match(es))");
-                    matchingProperties++;
-                    totalMatches += fileMatches;
-                }
-            }
-
-            if (matchingProperties == 0) {
-                System.out.println("No matching properties found");
-            } else {
-                System.out.println("Total matching properties: " + matchingProperties);
-                System.out.println("Total pattern matches: " + totalMatches);
-            }
-        } catch (IOException exception) {
-            System.out.println("Unable to read the corpus: " + exception.getMessage());
-        }
-    }
-
-    private static void searchCorpusKMP(Path corpusPath, String pattern) {
-        String lowerPattern = pattern.toLowerCase();
-        int matchingProperties = 0;
-        int totalMatches = 0;
+        List<Path> matchingFiles = new ArrayList<>();
 
         try (Stream<Path> files = Files.list(corpusPath)) {
             List<Path> propertyFiles = files
@@ -210,72 +129,44 @@ public class PropertyFinder {
                 int fileMatches = kmpSearch(document.toLowerCase(), lowerPattern);
 
                 if (fileMatches > 0) {
-                    System.out.println(propertyFile.getFileName() + " (" + fileMatches + " match(es))");
-                    matchingProperties++;
-                    totalMatches += fileMatches;
+                    matchingFiles.add(propertyFile);
+                    System.out.println((matchingFiles.size()) + ". " + propertyFile.getFileName() + " (" + fileMatches + " match(es))");
                 }
             }
 
-            if (matchingProperties == 0) {
+            if (matchingFiles.isEmpty()) {
                 System.out.println("No matching properties found");
             } else {
-                System.out.println("Total matching properties: " + matchingProperties);
-                System.out.println("Total pattern matches: " + totalMatches);
+                System.out.println("Total matching properties: " + matchingFiles.size());
+                System.out.print("\nEnter property number to view details (or press Enter to skip): ");
+                String selection = scanner.nextLine().trim();
+                
+                if (!selection.isEmpty()) {
+                    try {
+                        int index = Integer.parseInt(selection) - 1;
+                        if (index >= 0 && index < matchingFiles.size()) {
+                            displayPropertyDetails(matchingFiles.get(index));
+                        } else {
+                            System.out.println("Invalid property number.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                    }
+                }
             }
         } catch (IOException exception) {
             System.out.println("Unable to read the corpus: " + exception.getMessage());
         }
     }
 
-    private static void searchCorpusBoth(Path corpusPath, String pattern) {
-        String lowerPattern = pattern.toLowerCase();
-        int matchingPropertiesNaive = 0;
-        int totalMatchesNaive = 0;
-        int matchingPropertiesKMP = 0;
-        int totalMatchesKMP = 0;
-
-        try (Stream<Path> files = Files.list(corpusPath)) {
-            List<Path> propertyFiles = files
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.getFileName().toString().endsWith(".txt"))
-                    .sorted()
-                    .collect(Collectors.toList());
-
-            // Naive Search
-            long naiveStartTime = System.nanoTime();
-            for (Path propertyFile : propertyFiles) {
-                String document = Files.readString(propertyFile, StandardCharsets.UTF_8);
-                int fileMatches = naiveSearch(document.toLowerCase(), lowerPattern);
-                if (fileMatches > 0) {
-                    matchingPropertiesNaive++;
-                    totalMatchesNaive += fileMatches;
-                }
-            }
-            long naiveEndTime = System.nanoTime();
-            long naiveDuration = (naiveEndTime - naiveStartTime) / 1000; // Convert to microseconds
-
-            // KMP Search
-            long kmpStartTime = System.nanoTime();
-            for (Path propertyFile : propertyFiles) {
-                String document = Files.readString(propertyFile, StandardCharsets.UTF_8);
-                int fileMatches = kmpSearch(document.toLowerCase(), lowerPattern);
-                if (fileMatches > 0) {
-                    matchingPropertiesKMP++;
-                    totalMatchesKMP += fileMatches;
-                }
-            }
-            long kmpEndTime = System.nanoTime();
-            long kmpDuration = (kmpEndTime - kmpStartTime) / 1000; // Convert to microseconds
-
-            System.out.println("\n--- Performance Comparison ---");
-            System.out.println("Naive Search: " + matchingPropertiesNaive + " properties, " 
-                    + totalMatchesNaive + " matches in " + naiveDuration + " µs");
-            System.out.println("KMP Search:   " + matchingPropertiesKMP + " properties, " 
-                    + totalMatchesKMP + " matches in " + kmpDuration + " µs");
-            System.out.println("Speedup: " + String.format("%.2f", (double) naiveDuration / kmpDuration) + "x");
-
-        } catch (IOException exception) {
-            System.out.println("Unable to read the corpus: " + exception.getMessage());
+    private static void displayPropertyDetails(Path propertyFile) {
+        try {
+            String content = Files.readString(propertyFile, StandardCharsets.UTF_8);
+            System.out.println("\n========== PROPERTY DETAILS ==========");
+            System.out.println(content);
+            System.out.println("=======================================\n");
+        } catch (IOException e) {
+            System.out.println("Unable to read property file: " + e.getMessage());
         }
     }
 }
