@@ -116,7 +116,7 @@ public class PropertyFinder {
         List<Path> matchingFiles = new ArrayList<>();
 
         try (Stream<Path> files = Files.list(corpusPath)) {
-            List<Path> propertyFiles = files
+            List<Path> allPropertyFiles = files
                     .filter(Files::isRegularFile)
                     .filter(path -> path.getFileName().toString().endsWith(".txt"))
                     .sorted()
@@ -124,7 +124,7 @@ public class PropertyFinder {
 
             System.out.println("\n--- KMP Search Results ---");
 
-            for (Path propertyFile : propertyFiles) {
+            for (Path propertyFile : allPropertyFiles) {
                 String document = Files.readString(propertyFile, StandardCharsets.UTF_8);
                 int fileMatches = kmpSearch(document.toLowerCase(), lowerPattern);
 
@@ -138,16 +138,17 @@ public class PropertyFinder {
                 System.out.println("No matching properties found");
             } else {
                 System.out.println("Total matching properties: " + matchingFiles.size());
-                System.out.print("\nEnter property number to view details (or press Enter to skip): ");
+                System.out.println("\nYou can view any property (1-" + allPropertyFiles.size() + ")");
+                System.out.print("Enter property number: ");
                 String selection = scanner.nextLine().trim();
                 
                 if (!selection.isEmpty()) {
                     try {
                         int index = Integer.parseInt(selection) - 1;
-                        if (index >= 0 && index < matchingFiles.size()) {
-                            displayPropertyDetails(matchingFiles.get(index));
+                        if (index >= 0 && index < allPropertyFiles.size()) {
+                            displayPropertyDetails(allPropertyFiles.get(index));
                         } else {
-                            System.out.println("Invalid property number.");
+                            System.out.println("Invalid property number. Please enter a number between 1 and " + allPropertyFiles.size());
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid input. Please enter a number.");
