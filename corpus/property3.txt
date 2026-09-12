@@ -1,7 +1,16 @@
-Property ID: P103
-Location: Vijayawada
-Type: Apartment
-BHK: 2 BHK
-Price: 38 Lakhs
-Amenities: Lift, Security, Power Backup
-Description: Affordable 2 BHK apartment in Vijayawada near the city center and public transport.
+Property ID: PROP-3
+Location: Bangalore
+BHK Type: 2BHK
+Price: $3375876
+Bedrooms: 2
+Bathrooms: 3
+Square Feet: 3578
+Year Built: 2009
+Amenities: 
+Description: Beautiful 2BHK property in Bangalore with excellent amenities.
+Contact: +1-800-PROPERTY-3
+Status: Available
+Features: Natural light, hardwood floors, modern kitchen, updated bathrooms
+Nearby Schools: Central High School, Lincoln Elementary, Tech College
+Shopping: Main Street Mall, Downtown Plaza, Shopping Center
+Transportation: Near Bus Stop, Train Station, Highway Access

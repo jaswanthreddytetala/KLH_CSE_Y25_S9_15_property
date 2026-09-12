@@ -1,14 +1,14 @@
-Property ID: PROP-1
-Location: Hyderabad Suburbs
-BHK Type: 2BHK
-Price: $4061536
-Bedrooms: 2
+Property ID: PROP-11
+Location: Bangalore
+BHK Type: 4BHK
+Price: $4899082
+Bedrooms: 4
 Bathrooms: 4
-Square Feet: 4178
-Year Built: 2015
+Square Feet: 4911
+Year Built: 2023
 Amenities: 
-Description: Beautiful 2BHK property in Hyderabad Suburbs with excellent amenities.
-Contact: +1-800-PROPERTY-1
+Description: Beautiful 4BHK property in Bangalore with excellent amenities.
+Contact: +1-800-PROPERTY-11
 Status: Available
 Features: Natural light, hardwood floors, modern kitchen, updated bathrooms
 Nearby Schools: Central High School, Lincoln Elementary, Tech College

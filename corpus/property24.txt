@@ -1,14 +1,14 @@
-Property ID: PROP-1
-Location: Hyderabad Suburbs
+Property ID: PROP-24
+Location: Chennai
 BHK Type: 2BHK
-Price: $4061536
+Price: $2925968
 Bedrooms: 2
-Bathrooms: 4
-Square Feet: 4178
-Year Built: 2015
+Bathrooms: 3
+Square Feet: 3185
+Year Built: 2004
 Amenities: 
-Description: Beautiful 2BHK property in Hyderabad Suburbs with excellent amenities.
-Contact: +1-800-PROPERTY-1
+Description: Beautiful 2BHK property in Chennai with excellent amenities.
+Contact: +1-800-PROPERTY-24
 Status: Available
 Features: Natural light, hardwood floors, modern kitchen, updated bathrooms
 Nearby Schools: Central High School, Lincoln Elementary, Tech College

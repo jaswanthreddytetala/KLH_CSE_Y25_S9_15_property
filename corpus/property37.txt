@@ -1,14 +1,14 @@
-Property ID: PROP-1
-Location: Hyderabad Suburbs
+Property ID: PROP-37
+Location: Hyderabad
 BHK Type: 2BHK
-Price: $4061536
+Price: $2559551
 Bedrooms: 2
-Bathrooms: 4
-Square Feet: 4178
-Year Built: 2015
+Bathrooms: 2
+Square Feet: 2864
+Year Built: 2001
 Amenities: 
-Description: Beautiful 2BHK property in Hyderabad Suburbs with excellent amenities.
-Contact: +1-800-PROPERTY-1
+Description: Beautiful 2BHK property in Hyderabad with excellent amenities.
+Contact: +1-800-PROPERTY-37
 Status: Available
 Features: Natural light, hardwood floors, modern kitchen, updated bathrooms
 Nearby Schools: Central High School, Lincoln Elementary, Tech College

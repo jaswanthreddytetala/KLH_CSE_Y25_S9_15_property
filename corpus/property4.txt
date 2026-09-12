@@ -1,7 +1,16 @@
-Property ID: P104
-Location: Hyderabad
-Type: Villa
-BHK: 4 BHK
-Price: 1.2 Crore
-Amenities: Parking, Swimming Pool, Club House, Furnished Kitchen
-Description: Premium furnished villa in Hyderabad with spacious rooms and a swimming pool.
+Property ID: PROP-4
+Location: Pune
+BHK Type: 3BHK
+Price: $2171913
+Bedrooms: 3
+Bathrooms: 2
+Square Feet: 2525
+Year Built: 1998
+Amenities: 
+Description: Beautiful 3BHK property in Pune with excellent amenities.
+Contact: +1-800-PROPERTY-4
+Status: Available
+Features: Natural light, hardwood floors, modern kitchen, updated bathrooms
+Nearby Schools: Central High School, Lincoln Elementary, Tech College
+Shopping: Main Street Mall, Downtown Plaza, Shopping Center
+Transportation: Near Bus Stop, Train Station, Highway Access

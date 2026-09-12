@@ -1,14 +1,14 @@
-Property ID: PROP-1
-Location: Hyderabad Suburbs
-BHK Type: 2BHK
-Price: $4061536
-Bedrooms: 2
-Bathrooms: 4
-Square Feet: 4178
-Year Built: 2015
+Property ID: PROP-34
+Location: Delhi
+BHK Type: 1BHK
+Price: $2726910
+Bedrooms: 1
+Bathrooms: 3
+Square Feet: 3011
+Year Built: 2003
 Amenities: 
-Description: Beautiful 2BHK property in Hyderabad Suburbs with excellent amenities.
-Contact: +1-800-PROPERTY-1
+Description: Beautiful 1BHK property in Delhi with excellent amenities.
+Contact: +1-800-PROPERTY-34
 Status: Available
 Features: Natural light, hardwood floors, modern kitchen, updated bathrooms
 Nearby Schools: Central High School, Lincoln Elementary, Tech College
