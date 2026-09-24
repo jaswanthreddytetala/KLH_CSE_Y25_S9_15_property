@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property Finder</title>
+    <meta name="description" content="Find a place you'll love to live with modern property search, filtering, and comparison tools." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <div class="brand-wrap">
+          <div class="brand-mark">PF</div>
+          <div>
+            <div class="brand-name">Property Finder</div>
+            <small>Find your next address</small>
+          </div>
+        </div>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#home">Home</a>
+          <a href="#properties">Properties</a>
+          <a href="#buy">Buy</a>
+          <a href="#rent">Rent</a>
+          <a href="#locations">Locations</a>
+          <a href="#compare">Compare</a>
+          <a href="#shortlist">Shortlist</a>
+          <a href="#about">About</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button type="button" class="secondary-btn" data-action="scroll" data-target="#about">List Your Property</button>
+          <button type="button" class="primary-btn" data-action="open-first-property">Book a Visit</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="hero-section">
+        <div class="container hero-wrap">
+          <div class="hero-copy">
+            <span class="eyebrow">Smart real estate search</span>
+            <h1>Find a place you'll love to live.</h1>
+            <p>Discover homes and apartments in the world’s most desirable neighborhoods with fast, personalized search and expert guidance.</p>
+
+            <div class="cta-row">
+              <button type="button" class="primary-btn large" data-action="scroll" data-target="#properties">Explore Homes</button>
+              <button type="button" class="ghost-btn large" data-action="open-first-property">Book a Tour</button>
+            </div>
+
+            <ul class="trust-list">
+              <li>2,500+ verified listings</li>
+              <li>4.8/5 average rating</li>
+              <li>24/7 support</li>
+            </ul>
+          </div>
+
+          <div class="hero-panel">
+            <div class="panel-card">
+              <div class="panel-title-row">
+                <span class="mini-tag">Featured home</span>
+                <span class="status-badge">Ready to move</span>
+              </div>
+              <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" alt="Featured property" />
+              <div class="panel-price-row">
+                <div>
+                  <strong>₹1.45 Cr</strong>
+                  <span>Lakeview Manor</span>
+                </div>
+                <div class="star-rating">★ 4.9</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="search-section">
+        <div class="container search-card">
+          <form id="searchForm" class="search-form">
+            <label>
+              <span>Location</span>
+              <input id="locationInput" type="text" placeholder="Hyderabad, Bengaluru..." />
+            </label>
+            <label>
+              <span>Property Type</span>
+              <select id="typeInput">
+                <option value="">Any</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Villa">Villa</option>
+              </select>
+            </label>
+            <label>
+              <span>Min Price</span>
+              <input id="minPriceInput" type="number" placeholder="₹ 0" />
+            </label>
+            <label>
+              <span>Max Price</span>
+              <input id="maxPriceInput" type="number" placeholder="₹ 50L" />
+            </label>
+            <label>
+              <span>BHK</span>
+              <select id="bhkInput">
+                <option value="">Any</option>
+                <option value="1">1 BHK</option>
+                <option value="2">2 BHK</option>
+                <option value="3">3 BHK</option>
+                <option value="4">4 BHK</option>
+              </select>
+            </label>
+            <label>
+              <span>Min Area</span>
+              <input id="minAreaInput" type="number" placeholder="sq ft" />
+            </label>
+            <label>
+              <span>Max Area</span>
+              <input id="maxAreaInput" type="number" placeholder="sq ft" />
+            </label>
+            <label>
+              <span>Amenities</span>
+              <input id="amenitiesInput" type="text" placeholder="Gym, Pool..." />
+            </label>
+            <label>
+              <span>Rating</span>
+              <select id="ratingInput">
+                <option value="">Any</option>
+                <option value="4.5">4.5+</option>
+                <option value="4.7">4.7+</option>
+                <option value="4.8">4.8+</option>
+              </select>
+            </label>
+            <label>
+              <span>Availability</span>
+              <select id="availabilityInput">
+                <option value="">Any</option>
+                <option value="Ready to Move">Ready to Move</option>
+                <option value="Under Construction">Under Construction</option>
+                <option value="New Listing">New Listing</option>
+              </select>
+            </label>
+            <button type="submit" class="primary-btn full-width">Search Properties</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="stats-strip">
+        <div class="container stats-grid">
+          <div class="stat-box">
+            <strong id="totalProperties">0</strong>
+            <span>Properties</span>
+          </div>
+          <div class="stat-box">
+            <strong>320+</strong>
+            <span>Agents</span>
+          </div>
+          <div class="stat-box">
+            <strong>96%</strong>
+            <span>Buyer satisfaction</span>
+          </div>
+          <div class="stat-box">
+            <strong>14 days</strong>
+            <span>Average closing time</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="popular-locations" id="locations">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Popular locations</span>
+              <h2>Explore top neighborhoods</h2>
+            </div>
+            <a href="#properties" class="text-link">View all locations</a>
+          </div>
+
+          <div class="location-grid">
+            <div class="location-card">
+              <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=900&q=80" alt="Gachibowli" />
+              <div class="overlay">
+                <strong>Gachibowli</strong>
+                <span>128 homes</span>
+              </div>
+            </div>
+            <div class="location-card">
+              <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=900&q=80" alt="Koramangala" />
+              <div class="overlay">
+                <strong>Koramangala</strong>
+                <span>94 homes</span>
+              </div>
+            </div>
+            <div class="location-card">
+              <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=900&q=80" alt="Whitefield" />
+              <div class="overlay">
+                <strong>Whitefield</strong>
+                <span>143 homes</span>
+              </div>
+            </div>
+            <div class="location-card">
+              <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80" alt="Baner" />
+              <div class="overlay">
+                <strong>Baner</strong>
+                <span>87 homes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="properties-section" id="properties">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Find your match</span>
+              <h2>Featured properties</h2>
+            </div>
+            <div class="result-summary">
+              <span id="resultsCount">0 properties found</span>
+            </div>
+          </div>
+
+          <div id="featuredProperties" class="featured-grid"></div>
+          <div id="propertyResults" class="property-grid"></div>
+        </div>
+      </section>
+
+      <section class="recommend-section" id="buy">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">For buyers</span>
+              <h2>Recommended for you</h2>
+            </div>
+          </div>
+          <div id="recommendedProperties" class="recommended-grid"></div>
+        </div>
+      </section>
+
+      <section class="compare-section" id="compare">
+        <div class="container compare-wrap">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Compare homes</span>
+              <h2>Shortlist side by side</h2>
+            </div>
+          </div>
+          <div id="compareTable" class="compare-table"></div>
+        </div>
+      </section>
+
+      <section class="shortlist-section" id="shortlist">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">Saved homes</span>
+              <h2>Your shortlist</h2>
+            </div>
+          </div>
+          <div id="shortlistList" class="shortlist-grid"></div>
+        </div>
+      </section>
+
+      <section class="about-section" id="about">
+        <div class="container about-grid">
+          <div>
+            <span class="eyebrow">About Property Finder</span>
+            <h2>Making property search simple, transparent, and efficient.</h2>
+            <p>Property Finder helps buyers, renters, and investors discover relevant homes through intuitive search, category filters, location insights, and property comparison tools.</p>
+            <p>Behind the scenes, the Java implementation preserves the original corpus and algorithmic search foundation used for pattern matching, ranking, filtering, and recommendation support.</p>
+          </div>
+
+          <div class="technical-card">
+            <h3>Technical details</h3>
+            <ul>
+              <li>Java-based string matching and search logic for property corpus analysis</li>
+              <li>Ranking and filtering support using algorithmic heuristics and optimization methods</li>
+              <li>Dynamic programming and network flow ideas used for structured optimization</li>
+              <li>Approximation and randomized strategies for scalable property recommendation</li>
+            </ul>
+            <button type="button" class="ghost-btn" id="toggleTechnical" data-action="toggle-technical">Show details</button>
+            <div id="technicalPanel" class="technical-panel hidden">
+              <p><strong>Algorithms in the backend:</strong> KMP, Z Algorithm, Rabin-Karp, DP, flow optimization, approximation, randomized, and parallel techniques.</p>
+              <p>These are documented for viva and academic review, while the end-user experience remains focused on buying, renting, comparing, and viewing properties.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div>
+          <div class="brand-name">Property Finder</div>
+          <p>Discover homes that match your lifestyle.</p>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li>About</li>
+            <li>Agents</li>
+            <li>Careers</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <ul>
+            <li>Help Center</li>
+            <li>Contact</li>
+            <li>Privacy</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <div id="propertyModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-content">
+        <button class="close-modal" id="closeModal" aria-label="Close">×</button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+  </body>
+</html>

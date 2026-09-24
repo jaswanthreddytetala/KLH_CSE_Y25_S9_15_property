@@ -1,0 +1,37 @@
+{
+  "properties": [
+    {
+      "id": "PROP-1",
+      "title": "Hyderabad Apartment",
+      "location": "Hyderabad",
+      "price": "₹45,00,000",
+      "type": "Apartment",
+      "bedrooms": "3",
+      "bathrooms": "2",
+      "amenities": "Parking, Gym, Security",
+      "description": "Spacious apartment in Hyderabad with modern amenities and accessible transport."
+    },
+    {
+      "id": "PROP-2",
+      "title": "Bangalore Villa",
+      "location": "Bangalore",
+      "price": "₹1,20,00,000",
+      "type": "Villa",
+      "bedrooms": "4",
+      "bathrooms": "3",
+      "amenities": "Garden, Parking, Clubhouse",
+      "description": "Premium villa with greenery, parking, and fast connectivity."
+    },
+    {
+      "id": "PROP-3",
+      "title": "Chennai Apartment",
+      "location": "Chennai",
+      "price": "₹65,00,000",
+      "type": "Apartment",
+      "bedrooms": "2",
+      "bathrooms": "2",
+      "amenities": "Swimming Pool, Security",
+      "description": "Comfortable apartment with a pool and secure environment."
+    }
+  ]
+}

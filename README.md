@@ -1,262 +1,93 @@
-# Property Finder - Pattern Search Based Property Search System
+# PROPERTY FINDER — Advanced Algorithms & Interactive Visualization Platform
 
-## PART 1 - Project Structure
+## Project Overview
+This project extends the original Property Finder corpus and KMP-based search logic into a modern academic demonstration website and Java algorithm library. The original source is preserved and remains runnable while additional algorithm modules for CO1–CO6 are added around it.
 
+## Problem Statement
+The challenge is to create an academic project showing how property search and advanced algorithms connect to real-world data while meeting the six course outcomes. The solution emphasizes algorithm selection, implementation, performance reasoning, and professional presentation.
+
+## Objectives
+- Preserve the existing Property Finder logic and KMP implementation.
+- Add educational implementations for CO1–CO6.
+- Show algorithm behavior with interactive front-end demonstrations.
+- Explain time and space complexity clearly.
+- Present a polished academic dashboard and presentation mode.
+
+## Features
+- Original Java property corpus search preserved.
+- KMP pattern matching remains intact.
+- Additional algorithms for string processing, DP, flow, approximation, randomized, and parallel topics.
+- Responsive dashboard with CO sections and a presentation mode.
+- Java-based extension modules for educational demos.
+
+## Technologies
+- Java 17+
+- HTML5
+- CSS3
+- JavaScript
+- Property corpus stored as text files
+
+## Project Structure
 ```text
 PropertyFinder/
-├── src/
-│   └── PropertyFinder.java
 ├── corpus/
-│   ├── property1.txt
-│   ├── property2.txt
-│   ├── property3.txt
-│   ├── property4.txt
-│   └── property5.txt
-└── README.md
+├── src/
+│   ├── PropertyFinder.java
+│   ├── algorithms/
+│   │   ├── complexity/
+│   │   ├── dp/
+│   │   ├── flow/
+│   │   ├── randomized/
+│   │   └── string/
+│   ├── api/
+│   └── parallel/
+├── website/
+│   ├── index.html
+│   ├── styles.css
+│   ├── script.js
+│   └── data/
+├── README.md
+└── .git/
 ```
 
-The `corpus` folder is the collection of property text documents. The Java program reads these files at runtime; it does not hardcode search results.
+## Original Implementation Status
+The original KMP implementation in `src/PropertyFinder.java` is left intact and continues to operate on the property corpus directory.
 
-## PART 2 - Complete Java Code
+## CO Coverage
+- CO1: Problem classification and strategy selection
+- CO2: KMP, Z-function, Rabin-Karp, suffix-array concepts, LCP support
+- CO3: Interval DP, bitmask DP, tree DP, subset DP
+- CO4: Network flow and max-flow/min-cut reasoning
+- CO5: NP-completeness, reductions, approximation discussion
+- CO6: Randomized and parallel algorithm demonstrations
 
-The complete source is in `src/PropertyFinder.java`.
-
-```java
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-public class PropertyFinder {
-
-    // Naive pattern search: compare the pattern at every possible text position.
-    // The returned value is the number of occurrences in the text.
-    public static int naiveSearch(String text, String pattern) {
-        int matchCount = 0;
-        int textLength = text.length();
-        int patternLength = pattern.length();
-
-        if (patternLength == 0 || patternLength > textLength) {
-            return 0;
-        }
-
-        for (int textIndex = 0; textIndex <= textLength - patternLength; textIndex++) {
-            int patternIndex = 0;
-
-            while (patternIndex < patternLength
-                    && text.charAt(textIndex + patternIndex) == pattern.charAt(patternIndex)) {
-                patternIndex++;
-            }
-
-            if (patternIndex == patternLength) {
-                matchCount++;
-            }
-        }
-
-        return matchCount;
-    }
-
-    public static void main(String[] args) {
-        Path corpusPath = Paths.get("corpus");
-
-        if (!Files.isDirectory(corpusPath)) {
-            System.out.println("Corpus folder not found. Run the program from the PropertyFinder folder.");
-            return;
-        }
-
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("=== Property Finder: Naive Pattern Search ===");
-            System.out.println("Search property documents by location, price, BHK, or amenity.");
-            System.out.println("Type 'exit' to close the program.\n");
-
-            while (true) {
-                System.out.print("Enter pattern to search: ");
-                String pattern = scanner.nextLine().trim();
-
-                if (pattern.equalsIgnoreCase("exit")) {
-                    System.out.println("Thank you for using Property Finder.");
-                    break;
-                }
-
-                if (pattern.isEmpty()) {
-                    System.out.println("Please enter a non-empty pattern.\n");
-                    continue;
-                }
-
-                searchCorpus(corpusPath, pattern);
-                System.out.println();
-            }
-        }
-    }
-
-    private static void searchCorpus(Path corpusPath, String pattern) {
-        String lowerPattern = pattern.toLowerCase();
-        int matchingProperties = 0;
-        int totalMatches = 0;
-
-        try (Stream<Path> files = Files.list(corpusPath)) {
-            List<Path> propertyFiles = files
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.getFileName().toString().endsWith(".txt"))
-                    .sorted()
-                    .collect(Collectors.toList());
-
-            System.out.println("\nMatching Properties:");
-
-            for (Path propertyFile : propertyFiles) {
-                String document = Files.readString(propertyFile, StandardCharsets.UTF_8);
-                int fileMatches = naiveSearch(document.toLowerCase(), lowerPattern);
-
-                if (fileMatches > 0) {
-                    System.out.println(propertyFile.getFileName() + " (" + fileMatches + " match(es))");
-                    matchingProperties++;
-                    totalMatches += fileMatches;
-                }
-            }
-
-            if (matchingProperties == 0) {
-                System.out.println("No matching properties found");
-            } else {
-                System.out.println("Total matching properties: " + matchingProperties);
-                System.out.println("Total pattern matches: " + totalMatches);
-            }
-        } catch (IOException exception) {
-            System.out.println("Unable to read the corpus: " + exception.getMessage());
-        }
-    }
-}
-```
-
-## PART 3 - Corpus Text Files
-
-### `corpus/property1.txt`
-
-```text
-Property ID: P101
-Location: Hyderabad
-Type: Apartment
-BHK: 2 BHK
-Price: 45 Lakhs
-Amenities: Parking, Lift, Security
-Description: Spacious 2 BHK apartment available in Hyderabad, close to schools and offices.
-```
-
-### `corpus/property2.txt`
-
-```text
-Property ID: P102
-Location: Bangalore
-Type: Villa
-BHK: 3 BHK
-Price: 85 Lakhs
-Amenities: Parking, Swimming Pool, Garden, Security
-Description: Modern furnished villa in Bangalore with a private garden and swimming pool.
-```
-
-### `corpus/property3.txt`
-
-```text
-Property ID: P103
-Location: Vijayawada
-Type: Apartment
-BHK: 2 BHK
-Price: 38 Lakhs
-Amenities: Lift, Security, Power Backup
-Description: Affordable 2 BHK apartment in Vijayawada near the city center and public transport.
-```
-
-### `corpus/property4.txt`
-
-```text
-Property ID: P104
-Location: Hyderabad
-Type: Villa
-BHK: 4 BHK
-Price: 1.2 Crore
-Amenities: Parking, Swimming Pool, Club House, Furnished Kitchen
-Description: Premium furnished villa in Hyderabad with spacious rooms and a swimming pool.
-```
-
-### `corpus/property5.txt`
-
-```text
-Property ID: P105
-Location: Bangalore
-Type: Apartment
-BHK: 3 BHK
-Price: 62 Lakhs
-Amenities: Parking, Gym, Lift, Security
-Description: Well-connected 3 BHK apartment in Bangalore with covered parking and modern facilities.
-```
-
-## PART 4 - Ubuntu Commands
-
-Run these commands from an Ubuntu terminal. The commands assume the project folder is created in the current directory.
-
+## Install and Run
 ```bash
-mkdir -p PropertyFinder/src PropertyFinder/corpus
-cd PropertyFinder
-```
-
-After placing the Java file in `src/PropertyFinder.java` and the five text files in `corpus/`, compile and run:
-
-```bash
+cd "DSA 3/DSA PRO/PropertyFinder"
 javac src/PropertyFinder.java
 java -cp src PropertyFinder
 ```
 
-To create the files from the terminal, use a text editor such as `nano`:
-
+To view the website, open the HTML file in `website/index.html` in a browser or serve the folder:
 ```bash
-nano src/PropertyFinder.java
-nano corpus/property1.txt
-nano corpus/property2.txt
-nano corpus/property3.txt
-nano corpus/property4.txt
-nano corpus/property5.txt
+cd "DSA 3/DSA PRO/PropertyFinder/website"
+python -m http.server 8000
 ```
+Then visit: http://localhost:8000
 
-Paste the matching contents from PART 2 and PART 3, save with `Ctrl+O`, press `Enter`, and exit with `Ctrl+X`. Then run the compile and run commands above.
+## Academic Presentation Notes
+The website contains a presentation mode designed for professor demonstrations and showcases the six course outcomes along with the connected property-search context.
 
-## PART 5 - Sample Output
+## Files Intentionally Preserved
+- `src/PropertyFinder.java`
+- `corpus/`
+- original data and corpus structure
 
-### Search occurring in two documents
-
-```text
-Enter pattern to search: Hyderabad
-
-Matching Properties:
-property1.txt (2 match(es))
-property4.txt (2 match(es))
-Total matching properties: 2
-Total pattern matches: 4
-```
-
-The two matches in each file come from the `Location` and `Description` lines.
-
-### Search occurring in multiple documents
-
-```text
-Enter pattern to search: parking
-
-Matching Properties:
-property1.txt (1 match(es))
-property2.txt (1 match(es))
-property4.txt (1 match(es))
-property5.txt (2 match(es))
-Total matching properties: 4
-Total pattern matches: 5
-```
-
-### Search with uppercase input
-
-```text
-Enter pattern to search: BANGALORE
+## Future Expansion
+- Add a full REST backend service.
+- Expand tests for each algorithm module.
+- Add richer chart-based visualizations.
+- Connect UI actions directly to Java-backed algorithm modules.
 
 Matching Properties:
 property2.txt (2 match(es))

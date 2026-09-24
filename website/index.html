@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PROPERTY FINDER</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>PROPERTY FINDER</h1>
+        <p>Advanced Algorithms Platform</p>
+      </div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#property-search">Property Search</a>
+        <a href="#co1">CO1</a>
+        <a href="#co2">CO2</a>
+        <a href="#co3">CO3</a>
+        <a href="#co4">CO4</a>
+        <a href="#co5">CO5</a>
+        <a href="#co6">CO6</a>
+        <a href="#comparison">Algorithm Comparison</a>
+        <a href="#corpus">Corpus Explorer</a>
+        <a href="#analysis">Complexity Analyzer</a>
+        <a href="#about">About Project</a>
+      </nav>
+      <button class="presentation-btn" id="presentationModeBtn">Presentation Mode</button>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h2>Advanced Algorithm Demonstration Platform</h2>
+        </div>
+        <div class="status-pill">Course Outcomes: 6</div>
+      </header>
+
+      <section id="home" class="panel hero-panel">
+        <h3>PROPERTY FINDER</h3>
+        <p class="subtitle">An Interactive Property Search System Demonstrating Advanced Algorithms</p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span>Algorithms Implemented</span>
+            <strong id="algorithm-count">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Course Outcomes</span>
+            <strong>6</strong>
+          </div>
+          <div class="stat-card">
+            <span>Corpus Documents</span>
+            <strong id="corpus-count">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Visualization Modules</span>
+            <strong id="visualization-count">0</strong>
+          </div>
+        </div>
+
+        <div class="co-grid">
+          <article class="co-card">
+            <span class="co-number">CO1</span>
+            <h4>Problem Classification & Strategy Selection</h4>
+            <ul>
+              <li>Substring Search</li>
+              <li>Sequence Alignment</li>
+              <li>Network Flow</li>
+              <li>NP-Hard Scheduling</li>
+            </ul>
+            <button class="explore-btn" data-target="#co1">Explore</button>
+            <small>Status: Implemented</small>
+          </article>
+
+          <article class="co-card">
+            <span class="co-number">CO2</span>
+            <h4>Advanced String Algorithms</h4>
+            <ul>
+              <li>KMP</li>
+              <li>Z-Function</li>
+              <li>Rabin-Karp</li>
+              <li>Suffix Array</li>
+            </ul>
+            <button class="explore-btn" data-target="#co2">Explore</button>
+            <small>Status: Implemented</small>
+          </article>
+
+          <article class="co-card">
+            <span class="co-number">CO3</span>
+            <h4>Dynamic Programming</h4>
+            <ul>
+              <li>Interval DP</li>
+              <li>Bitmask DP</li>
+              <li>Tree DP</li>
+              <li>Subset DP</li>
+            </ul>
+            <button class="explore-btn" data-target="#co3">Explore</button>
+            <small>Status: Implemented</small>
+          </article>
+
+          <article class="co-card">
+            <span class="co-number">CO4</span>
+            <h4>Network Flow</h4>
+            <ul>
+              <li>Ford-Fulkerson</li>
+              <li>Edmonds-Karp</li>
+              <li>Dinic</li>
+              <li>Max Flow / Min Cut</li>
+            </ul>
+            <button class="explore-btn" data-target="#co4">Explore</button>
+            <small>Status: Implemented</small>
+          </article>
+
+          <article class="co-card">
+            <span class="co-number">CO5</span>
+            <h4>NP-Completeness & Approximation</h4>
+            <ul>
+              <li>P / NP</li>
+              <li>3-SAT -> Vertex Cover</li>
+              <li>Approximation</li>
+              <li>Scheduling</li>
+            </ul>
+            <button class="explore-btn" data-target="#co5">Explore</button>
+            <small>Status: Implemented</small>
+          </article>
+
+          <article class="co-card">
+            <span class="co-number">CO6</span>
+            <h4>Randomized & Parallel Algorithms</h4>
+            <ul>
+              <li>Las Vegas</li>
+              <li>Monte Carlo</li>
+              <li>Prefix Sum</li>
+              <li>Parallel Reduce</li>
+            </ul>
+            <button class="explore-btn" data-target="#co6">Explore</button>
+            <small>Status: Implemented</small>
+          </article>
+        </div>
+      </section>
+
+      <section id="property-search" class="panel">
+        <h3>Property Search</h3>
+        <div class="search-form">
+          <input id="locationInput" placeholder="Location" />
+          <input id="minPriceInput" placeholder="Minimum Price" />
+          <input id="maxPriceInput" placeholder="Maximum Price" />
+          <input id="typeInput" placeholder="Property Type" />
+          <input id="bedroomsInput" placeholder="Bedrooms" />
+          <input id="bathroomsInput" placeholder="Bathrooms" />
+          <input id="amenitiesInput" placeholder="Amenities" />
+          <input id="patternInput" placeholder="Pattern / Keyword" />
+          <button id="searchBtn">Search</button>
+          <button id="clearBtn" class="secondary">Clear</button>
+          <button id="advancedBtn" class="secondary">Advanced Search</button>
+        </div>
+        <div id="propertyResults" class="card-grid"></div>
+      </section>
+
+      <section id="co1" class="panel">
+        <h3>CO1 — Problem Classification & Algorithm Strategy</h3>
+        <div class="co-content">
+          <h4>Substring Search</h4>
+          <p><strong>Problem:</strong> Find whether a pattern exists in a property corpus.</p>
+          <p><strong>Suitable Algorithm:</strong> KMP</p>
+          <p><strong>Why:</strong> Efficient linear-time matching in streaming and large-text search.</p>
+          <p><strong>Complexity:</strong> O(n + m) time, O(m) space.</p>
+        </div>
+      </section>
+
+      <section id="co2" class="panel">
+        <h3>CO2 — String Algorithms</h3>
+        <div class="algorithm-lab">
+          <div class="lab-box">
+            <h4>KMP</h4>
+            <input id="kmpPattern" placeholder="Enter pattern" />
+            <button id="kmpSearchBtn">Search corpus</button>
+            <div id="kmpResult"></div>
+          </div>
+          <div class="lab-box">
+            <h4>Rabin-Karp</h4>
+            <input id="rkPattern" placeholder="Pattern" />
+            <input id="rkBase" value="3" />
+            <input id="rkMod" value="101" />
+            <button id="rkSearchBtn">Run Rabin-Karp</button>
+            <div id="rkResult"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="co3" class="panel">
+        <h3>CO3 — Dynamic Programming</h3>
+        <div class="grid-2">
+          <div class="lab-box">
+            <h4>Interval DP</h4>
+            <input id="matrixDims" value="10,20,30,40,30" />
+            <button id="intervalBtn">Compute</button>
+            <div id="intervalResult"></div>
+          </div>
+          <div class="lab-box">
+            <h4>Subset Sum</h4>
+            <input id="subsetNums" value="3,34,4,12,5,2" />
+            <input id="subsetTarget" value="9" />
+            <button id="subsetBtn">Check</button>
+            <div id="subsetResult"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="co4" class="panel">
+        <h3>CO4 — Network Flow Laboratory</h3>
+        <div class="grid-2">
+          <div class="lab-box">
+            <h4>Edmonds-Karp Demo</h4>
+            <input id="flowMatrix" value="0,3,2,0;0,0,2,3;0,0,0,2;0,0,0,0" />
+            <button id="flowBtn">Compute Max Flow</button>
+            <div id="flowResult"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="co5" class="panel">
+        <h3>CO5 — NP-Completeness & Approximation</h3>
+        <div class="lab-box">
+          <h4>Vertex Cover Approximation</h4>
+          <input id="vertexGraph" value="0,1,0,1;1,0,1,0;0,1,0,1;1,0,1,0" />
+          <button id="vertexBtn">Approximate Cover</button>
+          <div id="vertexResult"></div>
+        </div>
+      </section>
+
+      <section id="co6" class="panel">
+        <h3>CO6 — Randomized & Parallel Algorithms</h3>
+        <div class="grid-2">
+          <div class="lab-box">
+            <h4>Monte Carlo π</h4>
+            <select id="piSamples">
+              <option value="10">10</option>
+              <option value="100">100</option>
+              <option value="1000">1,000</option>
+              <option value="10000">10,000</option>
+              <option value="100000">100,000</option>
+              <option value="1000000">1,000,000</option>
+            </select>
+            <button id="piBtn">Estimate π</button>
+            <div id="piResult"></div>
+          </div>
+          <div class="lab-box">
+            <h4>Parallel Prefix Sum</h4>
+            <input id="prefixArray" value="1,2,3,4,5" />
+            <button id="prefixBtn">Compute</button>
+            <div id="prefixResult"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="comparison" class="panel">
+        <h3>Algorithm Comparison</h3>
+        <table>
+          <thead>
+            <tr><th>Algorithm</th><th>Category</th><th>Best</th><th>Average</th><th>Worst</th><th>Space</th><th>CO</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>KMP</td><td>String</td><td>O(n+m)</td><td>O(n+m)</td><td>O(n+m)</td><td>O(m)</td><td>CO2</td></tr>
+            <tr><td>Z-Function</td><td>String</td><td>O(n)</td><td>O(n)</td><td>O(n)</td><td>O(n)</td><td>CO2</td></tr>
+            <tr><td>Rabin-Karp</td><td>String</td><td>O(n+m)</td><td>O(n+m)</td><td>O(nm)</td><td>O(1)</td><td>CO2</td></tr>
+            <tr><td>Interval DP</td><td>DP</td><td>O(n^3)</td><td>O(n^3)</td><td>O(n^3)</td><td>O(n^2)</td><td>CO3</td></tr>
+            <tr><td>Edmonds-Karp</td><td>Flow</td><td>O(EV^2)</td><td>O(EV^2)</td><td>O(EV^2)</td><td>O(V^2)</td><td>CO4</td></tr>
+            <tr><td>Randomized QuickSort</td><td>Randomized</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n^2)</td><td>O(log n)</td><td>CO6</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="corpus" class="panel">
+        <h3>Corpus Explorer</h3>
+        <div id="corpusExplorer"></div>
+      </section>
+
+      <section id="analysis" class="panel">
+        <h3>Complexity Analyzer</h3>
+        <div id="complexityDetails"></div>
+      </section>
+
+      <section id="about" class="panel">
+        <h3>About Project</h3>
+        <p>This project extends the original Property Finder corpus and KMP-based search logic while adding modern educational modules for CO1–CO6, algorithm visualization, and an academic presentation layer.</p>
+      </section>
+    </main>
+  </div>
+
+  <div id="presentationOverlay" class="presentation-overlay hidden">
+    <div class="presentation-box">
+      <h2>PROPERTY FINDER</h2>
+      <p>Project Title: Property Finder — Advanced Algorithms & Interactive Visualization Platform</p>
+      <p><strong>Problem Statement:</strong> Use property search and algorithmic reasoning to show advanced algorithm strategies.</p>
+      <p><strong>Objectives:</strong> Demonstrate CO1–CO6, interactive problem solving, and professional academic presentation.</p>
+      <button id="nextCoBtn">Next CO</button>
+      <button id="closePresentationBtn" class="secondary">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
