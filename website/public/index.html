@@ -33,13 +33,14 @@
         </nav>
 
         <div class="nav-actions">
-          <button type="button" class="secondary-btn" data-action="scroll" data-target="#about">List Your Property</button>
-          <button type="button" class="primary-btn" data-action="open-first-property">Book a Visit</button>
+          <button type="button" class="secondary-btn" data-action="list-property">List Your Property</button>
+          <button type="button" class="primary-btn" data-action="book-visit">Book a Visit</button>
         </div>
       </div>
     </header>
 
     <main>
+      <div id="apiStatus" class="api-status hidden" role="alert" aria-live="polite"></div>
       <section id="home" class="hero-section">
         <div class="container hero-wrap">
           <div class="hero-copy">
@@ -49,7 +50,7 @@
 
             <div class="cta-row">
               <button type="button" class="primary-btn large" data-action="scroll" data-target="#properties">Explore Homes</button>
-              <button type="button" class="ghost-btn large" data-action="open-first-property">Book a Tour</button>
+              <button type="button" class="ghost-btn large" data-action="book-tour">Book a Tour</button>
             </div>
 
             <ul class="trust-list">
@@ -141,7 +142,10 @@
                 <option value="New Listing">New Listing</option>
               </select>
             </label>
-            <button type="submit" class="primary-btn full-width">Search Properties</button>
+            <div class="search-actions">
+              <button type="submit" class="primary-btn full-width">Search Properties</button>
+              <button type="button" class="ghost-btn full-width" data-action="clear-filters">Reset Filters</button>
+            </div>
           </form>
         </div>
       </section>
@@ -236,6 +240,18 @@
             </div>
           </div>
           <div id="recommendedProperties" class="recommended-grid"></div>
+        </div>
+      </section>
+
+      <section class="recommend-section" id="rent">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">For renters</span>
+              <h2>Rent-ready homes</h2>
+            </div>
+          </div>
+          <div id="rentProperties" class="recommended-grid"></div>
         </div>
       </section>
 
