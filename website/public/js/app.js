@@ -48,11 +48,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function formatCurrency(value) {
-    return `₹${Number(value || 0).toLocaleString('en-IN')}`;
+    const currency = value && typeof value === 'object' ? value.currency : 'INR';
+    const amount = Number(value && typeof value === 'object' ? value.price : value || 0);
+    return currency === 'USD'
+      ? `$${amount.toLocaleString('en-US')}`
+      : `₹${amount.toLocaleString('en-IN')}`;
   }
 
   function sanitize(text) {
-    return String(text ?? '').replace(/[<>]/g, '').trim();
+    return String(text ?? '').trim()
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function propertyLocation(property) {
+    const city = property.city && property.city !== property.location ? `, ${property.city}` : '';
+    return `${property.location}${city}`;
   }
 
   function setApiStatus(message) {
@@ -76,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
       minPrice: form.querySelector('#minPriceInput')?.value || '',
       maxPrice: form.querySelector('#maxPriceInput')?.value || '',
       bhk: form.querySelector('#bhkInput')?.value || '',
+      bathrooms: form.querySelector('#bathroomsInput')?.value || '',
       minArea: form.querySelector('#minAreaInput')?.value || '',
       maxArea: form.querySelector('#maxAreaInput')?.value || '',
       amenities: form.querySelector('#amenitiesInput')?.value.trim() || '',
@@ -107,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         minPrice: '#minPriceInput',
         maxPrice: '#maxPriceInput',
         bhk: '#bhkInput',
+        bathrooms: '#bathroomsInput',
         minArea: '#minAreaInput',
         maxArea: '#maxAreaInput',
         amenities: '#amenitiesInput',
@@ -139,20 +155,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const featured = properties.slice(0, 3);
     featuredProperties.innerHTML = featured.map(property => `
       <article class="feature-card">
-        <img src="${property.image}" alt="${sanitize(property.name)}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
+        <img src="${property.image}" alt="${sanitize(property.name)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
         <div class="feature-info">
           <div class="feature-head">
             <span>${sanitize(property.type)}</span>
             <span class="feature-rating">★ ${property.rating}</span>
           </div>
           <h3>${sanitize(property.name)}</h3>
-          <p>${sanitize(property.location)}, ${sanitize(property.city)}</p>
+          <p>${sanitize(propertyLocation(property))}</p>
           <div class="feature-meta">
             <span>${property.bhk} BHK</span>
             <span>${property.area.toLocaleString()} sq ft</span>
           </div>
           <div class="feature-footer">
-            <strong>${formatCurrency(property.price)}</strong>
+            <strong>${formatCurrency(property)}</strong>
             <button type="button" class="small-link" data-id="${property.id}" data-action="details">View Details</button>
           </div>
         </div>
@@ -170,12 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const recommended = properties.slice(0, 4);
     target.innerHTML = recommended.map(property => `
       <article class="mini-card" data-id="${property.id}" data-action="details">
-        <img src="${property.image}" alt="${sanitize(property.name)}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
+        <img src="${property.image}" alt="${sanitize(property.name)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
         <div>
           <h3>${sanitize(property.name)}</h3>
-          <p>${sanitize(property.location)} • ${property.bhk} BHK</p>
+          <p>${sanitize(propertyLocation(property))} • ${property.bhk} BHK</p>
           <div class="mini-row">
-            <strong>${formatCurrency(property.price)}</strong>
+            <strong>${formatCurrency(property)}</strong>
             <span>★ ${property.rating}</span>
           </div>
           <div class="mini-actions">
@@ -196,12 +212,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     rentProperties.innerHTML = rentCandidates.map(property => `
       <article class="mini-card" data-id="${property.id}" data-action="details">
-        <img src="${property.image}" alt="${sanitize(property.name)}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
+        <img src="${property.image}" alt="${sanitize(property.name)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
         <div>
           <h3>${sanitize(property.name)}</h3>
-          <p>${sanitize(property.location)} • ${property.bhk} BHK</p>
+          <p>${sanitize(propertyLocation(property))} • ${property.bhk} BHK</p>
           <div class="mini-row">
-            <strong>${formatCurrency(property.price)}</strong>
+            <strong>${formatCurrency(property)}</strong>
             <span>★ ${property.rating}</span>
           </div>
           <div class="mini-actions">
@@ -219,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return `
       <article class="property-card">
         <div class="property-image-wrap">
-          <img src="${property.image}" alt="${sanitize(property.name)}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
+          <img src="${property.image}" alt="${sanitize(property.name)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
           <button type="button" class="badge-btn ${isShortlisted ? 'active' : ''}" data-id="${property.id}" data-action="shortlist">${isShortlisted ? 'Shortlisted' : 'Shortlist'}</button>
         </div>
 
@@ -227,18 +243,19 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="card-row top-row">
             <div>
               <h3>${sanitize(property.name)}</h3>
-              <p class="location-line">📍 ${sanitize(property.location)}, ${sanitize(property.city)}</p>
+              <p class="location-line">📍 ${sanitize(propertyLocation(property))}</p>
             </div>
             <span class="rating-pill">★ ${property.rating}</span>
           </div>
 
           <div class="property-price-row">
-            <strong>${formatCurrency(property.price)}</strong>
+            <strong>${formatCurrency(property)}</strong>
             <span class="availability-tag">${sanitize(property.availability)}</span>
           </div>
 
           <div class="meta-grid">
             <span>${property.bhk} BHK</span>
+            <span>${property.bathrooms} Baths</span>
             <span>${property.area.toLocaleString()} sq ft</span>
             <span>${sanitize(property.type)}</span>
           </div>
@@ -284,11 +301,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const selected = state.allProperties.filter(item => state.shortlist.includes(item.id));
     shortlistList.innerHTML = selected.map(property => `
       <article class="shortlist-card">
-        <img src="${property.image}" alt="${sanitize(property.name)}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
+        <img src="${property.image}" alt="${sanitize(property.name)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
         <div>
           <h3>${sanitize(property.name)}</h3>
           <p>${sanitize(property.location)}</p>
-          <strong>${formatCurrency(property.price)}</strong>
+          <strong>${formatCurrency(property)}</strong>
           <div class="shortlist-controls">
             <button type="button" class="secondary-btn tiny" data-id="${property.id}" data-action="details">View Details</button>
             <button type="button" class="ghost-btn tiny" data-id="${property.id}" data-action="shortlist">Remove</button>
@@ -312,6 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { key: 'Location', value: item => sanitize(item.location) },
       { key: 'Type', value: item => sanitize(item.type) },
       { key: 'BHK', value: item => `${item.bhk} BHK` },
+      { key: 'Bathrooms', value: item => String(item.bathrooms) },
       { key: 'Area', value: item => `${item.area.toLocaleString()} sq ft` },
       { key: 'Price', value: item => formatCurrency(item.price) },
       { key: 'Rating', value: item => `★ ${item.rating}` },
@@ -345,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modalBody.innerHTML = `
       <div class="modal-hero">
-        <img src="${property.image}" alt="${sanitize(property.name)}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
+        <img src="${property.image}" alt="${sanitize(property.name)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80';" />
       </div>
       <div class="modal-main">
         <div class="modal-topline">
@@ -357,15 +375,24 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div class="modal-meta">
-          <span>📍 ${sanitize(property.location)}, ${sanitize(property.city)}</span>
+          <span>📍 ${sanitize(propertyLocation(property))}</span>
           <span>🛏 ${property.bhk} BHK</span>
+          <span>🛁 ${property.bathrooms} bathrooms</span>
           <span>📐 ${property.area.toLocaleString()} sq ft</span>
           <span>📦 ${sanitize(property.availability)}</span>
         </div>
 
-        <div class="modal-price">${formatCurrency(property.price)}</div>
+        <div class="modal-price">${formatCurrency(property)}</div>
 
         <p>${sanitize(property.description)}</p>
+
+        <div class="property-extra-details">
+          ${property.yearBuilt ? `<p><strong>Year built:</strong> ${property.yearBuilt}</p>` : ''}
+          ${property.features?.length ? `<p><strong>Features:</strong> ${sanitize(property.features.join(', '))}</p>` : ''}
+          ${property.nearbySchools ? `<p><strong>Nearby schools:</strong> ${sanitize(property.nearbySchools)}</p>` : ''}
+          ${property.shopping ? `<p><strong>Nearby shopping:</strong> ${sanitize(property.shopping)}</p>` : ''}
+          ${property.transportation ? `<p><strong>Transportation:</strong> ${sanitize(property.transportation)}</p>` : ''}
+        </div>
 
         <div class="amenities-list large">
           ${(property.amenities || []).map(item => `<span>${sanitize(item)}</span>`).join('')}
@@ -496,22 +523,18 @@ document.addEventListener('DOMContentLoaded', () => {
             <h2>Sell or rent your home</h2>
           </div>
         </div>
-        <form class="form-shell" data-form="list-property">
+        <form class="form-shell listing-form" data-form="list-property">
           <label>
             Owner name
             <input type="text" name="ownerName" placeholder="Owner full name" required />
           </label>
           <label>
-            Phone
-            <input type="tel" name="phone" placeholder="Phone number" required />
+            Contact number
+            <input type="tel" name="phone" maxlength="30" placeholder="+91 98765 43210" required />
           </label>
           <label>
-            Email
-            <input type="email" name="email" placeholder="Email address" required />
-          </label>
-          <label>
-            Property name
-            <input type="text" name="propertyName" placeholder="Your property name" required />
+            Property title
+            <input type="text" name="name" maxlength="120" placeholder="Your property name" required />
           </label>
           <label>
             Location
@@ -522,28 +545,33 @@ document.addEventListener('DOMContentLoaded', () => {
             <select name="type" required>
               <option value="Apartment">Apartment</option>
               <option value="Villa">Villa</option>
+              <option value="House">House</option>
+              <option value="Plot">Plot</option>
             </select>
           </label>
           <label>
-            Price
-            <input type="number" name="price" min="0" placeholder="₹ amount" required />
+            Price (₹)
+            <input type="number" name="price" min="1" step="1" placeholder="Price in rupees" required />
           </label>
           <label>
-            BHK
-            <select name="bhk" required>
-              <option value="1">1 BHK</option>
-              <option value="2">2 BHK</option>
-              <option value="3">3 BHK</option>
-              <option value="4">4 BHK</option>
-            </select>
+            Bedrooms
+            <input type="number" name="bedrooms" min="1" max="30" step="1" required />
+          </label>
+          <label>
+            Bathrooms
+            <input type="number" name="bathrooms" min="0.5" max="30" step="0.5" required />
           </label>
           <label>
             Area (sq ft)
-            <input type="number" name="area" min="0" placeholder="Area in sq ft" required />
+            <input type="number" name="area" min="1" step="1" placeholder="Area in sq ft" required />
           </label>
           <label>
             Amenities
-            <input type="text" name="amenities" placeholder="Gym, Pool, Security" required />
+            <input type="text" name="amenities" placeholder="Gym, Pool, Security" />
+          </label>
+          <label>
+            Property image URL (optional)
+            <input type="url" name="image" placeholder="https://example.com/property.jpg" />
           </label>
           <label>
             Description
@@ -564,6 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const minPrice = Number(filters.minPrice || 0);
     const maxPrice = Number(filters.maxPrice || Number.MAX_SAFE_INTEGER);
     const bhkValue = Number(filters.bhk || 0);
+    const bathroomsValue = Number(filters.bathrooms || 0);
     const minArea = Number(filters.minArea || 0);
     const maxArea = Number(filters.maxArea || Number.MAX_SAFE_INTEGER);
     const amenitiesValue = (filters.amenities || '').toLowerCase().trim();
@@ -574,12 +603,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const matchesType = !typeValue || property.type === typeValue;
     const matchesPrice = property.price >= minPrice && property.price <= maxPrice;
     const matchesBhk = !bhkValue || property.bhk === bhkValue;
+    const matchesBathrooms = !bathroomsValue || property.bathrooms >= bathroomsValue;
     const matchesArea = property.area >= minArea && property.area <= maxArea;
     const matchesAmenities = !amenitiesValue || (property.amenities || []).some(item => item.toLowerCase().includes(amenitiesValue));
     const matchesRating = !ratingValue || property.rating >= ratingValue;
     const matchesAvailability = !availabilityValue || property.availability === availabilityValue;
 
-    return matchesLocation && matchesType && matchesPrice && matchesBhk && matchesArea && matchesAmenities && matchesRating && matchesAvailability;
+    return matchesLocation && matchesType && matchesPrice && matchesBhk && matchesBathrooms && matchesArea && matchesAmenities && matchesRating && matchesAvailability;
   }
 
   function applyFilters() {
@@ -664,7 +694,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function handleFormSubmit(event) {
+  async function handleFormSubmit(event) {
     const form = event.target;
     if (!form || !(form instanceof HTMLFormElement)) return;
 
@@ -706,39 +736,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (form.matches('[data-form="list-property"]')) {
       event.preventDefault();
-      const requiredFields = ['ownerName', 'phone', 'email', 'propertyName', 'location', 'price', 'bhk', 'area', 'amenities', 'description'];
+      const requiredFields = ['ownerName', 'phone', 'name', 'location', 'type', 'price', 'bedrooms', 'bathrooms', 'area', 'description'];
       const missing = requiredFields.some(field => !form.elements[field]?.value.trim());
 
       if (missing) {
-        showFormMessage(form, 'Please complete the listing form in full.', 'error');
+        showFormMessage(form, 'Please complete all required property details.', 'error');
         return;
       }
 
-      const listing = {
-        id: `LIST-${Date.now()}`,
-        ownerName: form.elements.ownerName.value.trim(),
-        phone: form.elements.phone.value.trim(),
-        email: form.elements.email.value.trim(),
-        propertyName: form.elements.propertyName.value.trim(),
-        location: form.elements.location.value.trim(),
-        type: form.elements.type.value,
-        price: Number(form.elements.price.value),
-        bhk: Number(form.elements.bhk.value),
-        area: Number(form.elements.area.value),
-        amenities: form.elements.amenities.value.split(',').map(item => item.trim()).filter(Boolean),
-        description: form.elements.description.value.trim(),
-        submittedAt: new Date().toISOString()
-      };
-
       try {
-        const existing = JSON.parse(localStorage.getItem(STORAGE_KEYS.listings) || '[]');
-        existing.push(listing);
-        localStorage.setItem(STORAGE_KEYS.listings, JSON.stringify(existing));
-        showFormMessage(form, 'Property submitted successfully.', 'success');
+        const response = await fetch('/api/properties', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ownerName: form.elements.ownerName.value.trim(),
+            phone: form.elements.phone.value.trim(),
+            name: form.elements.name.value.trim(),
+            location: form.elements.location.value.trim(),
+            type: form.elements.type.value,
+            price: form.elements.price.value,
+            bedrooms: form.elements.bedrooms.value,
+            bathrooms: form.elements.bathrooms.value,
+            area: form.elements.area.value,
+            amenities: form.elements.amenities.value,
+            description: form.elements.description.value.trim(),
+            image: form.elements.image.value.trim()
+          })
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || 'Unable to submit property.');
+        showFormMessage(form, result.message, 'success');
         form.reset();
       } catch (error) {
-        console.error('Unable to save property listing:', error);
-        showFormMessage(form, 'There was a problem storing the listing. Please try again.', 'error');
+        console.error('Unable to submit property listing:', error);
+        showFormMessage(form, error.message || 'There was a problem storing the listing. Please try again.', 'error');
       }
     }
   }
@@ -756,13 +787,25 @@ document.addEventListener('DOMContentLoaded', () => {
         state.allProperties = properties;
         state.filteredProperties = [...properties];
         if (totalProperties) totalProperties.textContent = String(properties.length);
-        renderFeatured(properties);
-        renderRecommended(properties);
-        renderRentProperties(properties);
-        renderProperties(properties);
+        const featured = properties[0];
+        if (featured) {
+          const heroImage = document.getElementById('heroFeaturedImage');
+          const heroPrice = document.getElementById('heroFeaturedPrice');
+          const heroName = document.getElementById('heroFeaturedName');
+          const heroRating = document.getElementById('heroFeaturedRating');
+          const heroAvailability = document.getElementById('heroAvailability');
+          if (heroImage) {
+            heroImage.src = featured.image;
+            heroImage.alt = sanitize(featured.name);
+          }
+          if (heroPrice) heroPrice.textContent = formatCurrency(featured);
+          if (heroName) heroName.textContent = featured.name;
+          if (heroRating) heroRating.textContent = featured.rating ? `★ ${featured.rating}` : `${featured.bhk} BHK`;
+          if (heroAvailability) heroAvailability.textContent = featured.availability;
+        }
         renderShortlist();
         renderCompare();
-        restoreFilters();
+        applyFilters();
       })
       .catch(error => {
         console.error('Unable to load properties. Please make sure the Property Finder server is running.', error);

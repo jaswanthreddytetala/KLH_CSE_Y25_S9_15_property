@@ -23,17 +23,19 @@
 
         <nav class="main-nav" aria-label="Main navigation">
           <a href="#home">Home</a>
-          <a href="#properties">Properties</a>
+          <a href="#properties">Search Properties</a>
           <a href="#buy">Buy</a>
           <a href="#rent">Rent</a>
           <a href="#locations">Locations</a>
           <a href="#compare">Compare</a>
           <a href="#shortlist">Shortlist</a>
           <a href="#about">About</a>
+          <button type="button" class="nav-link" data-action="list-property">Add Property</button>
+          <a href="/admin/login">Admin Login</a>
         </nav>
 
         <div class="nav-actions">
-          <button type="button" class="secondary-btn" data-action="list-property">List Your Property</button>
+          <button type="button" class="secondary-btn" data-action="list-property">Add Property</button>
           <button type="button" class="primary-btn" data-action="book-visit">Book a Visit</button>
         </div>
       </div>
@@ -54,9 +56,9 @@
             </div>
 
             <ul class="trust-list">
-              <li>2,500+ verified listings</li>
-              <li>4.8/5 average rating</li>
-              <li>24/7 support</li>
+              <li>40+ corpus property records</li>
+              <li>Search by price, rooms, and amenities</li>
+              <li>Compare and shortlist homes</li>
             </ul>
           </div>
 
@@ -64,15 +66,15 @@
             <div class="panel-card">
               <div class="panel-title-row">
                 <span class="mini-tag">Featured home</span>
-                <span class="status-badge">Ready to move</span>
+                <span class="status-badge" id="heroAvailability">Available</span>
               </div>
-              <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" alt="Featured property" />
+              <img id="heroFeaturedImage" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80" alt="Featured property" fetchpriority="high" decoding="async" />
               <div class="panel-price-row">
                 <div>
-                  <strong>₹1.45 Cr</strong>
-                  <span>Lakeview Manor</span>
+                  <strong id="heroFeaturedPrice">Explore property listings</strong>
+                  <span id="heroFeaturedName">Homes from the property corpus</span>
                 </div>
-                <div class="star-rating">★ 4.9</div>
+                <div class="star-rating" id="heroFeaturedRating"></div>
               </div>
             </div>
           </div>
@@ -92,14 +94,16 @@
                 <option value="">Any</option>
                 <option value="Apartment">Apartment</option>
                 <option value="Villa">Villa</option>
+                <option value="House">House</option>
+                <option value="Plot">Plot</option>
               </select>
             </label>
             <label>
-              <span>Min Price</span>
+              <span>Min Price (listing currency)</span>
               <input id="minPriceInput" type="number" placeholder="₹ 0" />
             </label>
             <label>
-              <span>Max Price</span>
+              <span>Max Price (listing currency)</span>
               <input id="maxPriceInput" type="number" placeholder="₹ 50L" />
             </label>
             <label>
@@ -110,6 +114,16 @@
                 <option value="2">2 BHK</option>
                 <option value="3">3 BHK</option>
                 <option value="4">4 BHK</option>
+              </select>
+            </label>
+            <label>
+              <span>Bathrooms (minimum)</span>
+              <select id="bathroomsInput">
+                <option value="">Any</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
               </select>
             </label>
             <label>
@@ -137,6 +151,7 @@
               <span>Availability</span>
               <select id="availabilityInput">
                 <option value="">Any</option>
+                <option value="Available">Available</option>
                 <option value="Ready to Move">Ready to Move</option>
                 <option value="Under Construction">Under Construction</option>
                 <option value="New Listing">New Listing</option>
@@ -183,28 +198,28 @@
 
           <div class="location-grid">
             <div class="location-card">
-              <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=900&q=80" alt="Gachibowli" />
+              <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=900&q=80" alt="Gachibowli" loading="lazy" decoding="async" />
               <div class="overlay">
                 <strong>Gachibowli</strong>
                 <span>128 homes</span>
               </div>
             </div>
             <div class="location-card">
-              <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=900&q=80" alt="Koramangala" />
+              <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=900&q=80" alt="Koramangala" loading="lazy" decoding="async" />
               <div class="overlay">
                 <strong>Koramangala</strong>
                 <span>94 homes</span>
               </div>
             </div>
             <div class="location-card">
-              <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=900&q=80" alt="Whitefield" />
+              <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=900&q=80" alt="Whitefield" loading="lazy" decoding="async" />
               <div class="overlay">
                 <strong>Whitefield</strong>
                 <span>143 homes</span>
               </div>
             </div>
             <div class="location-card">
-              <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80" alt="Baner" />
+              <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80" alt="Baner" loading="lazy" decoding="async" />
               <div class="overlay">
                 <strong>Baner</strong>
                 <span>87 homes</span>

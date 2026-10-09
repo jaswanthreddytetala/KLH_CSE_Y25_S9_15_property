@@ -1,0 +1,186 @@
+.admin-page {
+  min-height: 100vh;
+}
+
+.admin-login-wrap {
+  width: min(480px, calc(100% - 32px));
+  margin: 8vh auto;
+}
+
+.admin-back-link {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.admin-panel {
+  padding: 32px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.admin-panel h1,
+.admin-dashboard h1 {
+  margin: 14px 0 8px;
+}
+
+.admin-panel > p,
+.admin-dashboard .section-header p {
+  color: var(--muted);
+}
+
+.admin-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 82px;
+}
+
+.admin-nav .brand-wrap small {
+  display: block;
+}
+
+.admin-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-dashboard {
+  padding-top: 38px;
+  padding-bottom: 60px;
+}
+
+.admin-section {
+  margin-top: 36px;
+}
+
+.admin-section .section-header {
+  align-items: center;
+}
+
+.admin-section h2 {
+  margin: 0;
+}
+
+.admin-section .section-header p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.admin-count {
+  display: grid;
+  place-items: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #edf5ff;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.admin-property-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.admin-property-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.admin-property-card h3 {
+  margin: 0 0 8px;
+}
+
+.admin-property-card p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.admin-property-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.admin-property-meta span {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: var(--panel-alt);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.admin-property-card details {
+  margin: 14px 0;
+}
+
+.admin-property-card summary {
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.admin-property-image {
+  width: 100%;
+  max-height: 240px;
+  margin: 12px 0;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.admin-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.admin-card-actions .reject-action,
+.admin-card-actions .delete-action {
+  color: #a12626;
+}
+
+.admin-message {
+  margin: 18px 0;
+  padding: 13px 16px;
+  border-radius: 12px;
+  background: rgba(30, 157, 109, 0.12);
+  color: var(--success);
+  font-weight: 700;
+}
+
+.admin-message.error {
+  background: rgba(214, 36, 36, 0.08);
+  color: #9f1d1d;
+}
+
+@media (max-width: 640px) {
+  .admin-panel {
+    padding: 24px;
+  }
+
+  .admin-nav {
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+  }
+
+  .admin-nav-actions {
+    width: 100%;
+  }
+
+  .admin-property-grid {
+    grid-template-columns: 1fr;
+  }
+}

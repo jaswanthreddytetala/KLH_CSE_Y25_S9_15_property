@@ -17,11 +17,14 @@ The challenge is to create an academic project showing how property search and a
 - Original Java property corpus search preserved.
 - KMP pattern matching remains intact.
 - Additional algorithms for string processing, DP, flow, approximation, randomized, and parallel topics.
-- Responsive dashboard with CO sections and a presentation mode.
+- Responsive property website with search filters, property comparison, and a saved shortlist.
+- Property submissions with an administrator review and approval workflow.
+- Express API serving corpus listings and approved user submissions.
 - Java-based extension modules for educational demos.
 
 ## Technologies
 - Java 17+
+- Node.js and Express
 - HTML5
 - CSS3
 - JavaScript
@@ -42,9 +45,12 @@ PropertyFinder/
 │   ├── api/
 │   └── parallel/
 ├── website/
-│   ├── index.html
-│   ├── styles.css
-│   ├── script.js
+│   ├── server.js
+│   ├── admin-dashboard.html
+│   ├── public/
+│   │   ├── index.html
+│   │   ├── css/
+│   │   └── js/
 │   └── data/
 ├── README.md
 └── .git/
@@ -68,12 +74,17 @@ javac src/PropertyFinder.java
 java -cp src PropertyFinder
 ```
 
-To view the website, open the HTML file in `website/index.html` in a browser or serve the folder:
+To run the property website and its API, start the existing Express app:
 ```bash
 cd "DSA 3/DSA PRO/PropertyFinder/website"
-python -m http.server 8000
+npm install
+npm start
 ```
-Then visit: http://localhost:8000
+Then visit: http://localhost:3000
+
+The website reads its published listings from `corpus/*.txt`. New listings are saved in `website/data/submissions.json` with a `Pending`, `Approved`, or `Rejected` status. Users can submit a property from **Add Property**; it enters public search only after an administrator approves it. Admin sign-in is at `http://localhost:3000/admin/login`; the configured password `5566` is for classroom demonstration only. The protected dashboard is at `/admin/dashboard`.
+
+Search and filtering run over the currently approved dataset, including location, property type, price, bedrooms, bathrooms, area, amenities, rating, and availability. Search filters, the shortlist, and comparison selections are saved in the browser. The Java algorithms and corpus search implementation remain available for the DSA demonstration.
 
 ## Academic Presentation Notes
 The website contains a presentation mode designed for professor demonstrations and showcases the six course outcomes along with the connected property-search context.
@@ -84,10 +95,9 @@ The website contains a presentation mode designed for professor demonstrations a
 - original data and corpus structure
 
 ## Future Expansion
-- Add a full REST backend service.
-- Expand tests for each algorithm module.
-- Add richer chart-based visualizations.
-- Connect UI actions directly to Java-backed algorithm modules.
+- Replace the local JSON submission store with a database for multi-user deployments.
+- Add dedicated automated tests for each website API workflow.
+- Connect interactive website demonstrations directly to the Java algorithm modules.
 
 Matching Properties:
 property2.txt (2 match(es))

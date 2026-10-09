@@ -5,3 +5,4 @@
 .vscode/
 .idea/
 target/
+website/data/submissions.json

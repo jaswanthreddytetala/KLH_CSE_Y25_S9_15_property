@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Property Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+  </head>
+  <body class="admin-page">
+    <header class="topbar">
+      <div class="container admin-nav">
+        <a class="brand-wrap" href="/">
+          <span class="brand-mark">PF</span>
+          <span>
+            <span class="brand-name">Property Finder</span>
+            <small>Admin dashboard</small>
+          </span>
+        </a>
+        <div class="admin-nav-actions">
+          <a class="secondary-btn" href="/">View Public Website</a>
+          <button class="ghost-btn" id="adminLogout" type="button">Log Out</button>
+        </div>
+      </div>
+    </header>
+    <main class="container admin-dashboard">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Property management</span>
+          <h1>Review submissions</h1>
+          <p>Only approved properties are visible in public search and listings.</p>
+        </div>
+      </div>
+      <div id="adminMessage" class="admin-message hidden" role="status" aria-live="polite"></div>
+      <section class="admin-section">
+        <div class="section-header">
+          <div><h2>Pending Properties</h2><p>Review each user-submitted listing before publishing it.</p></div>
+          <span class="admin-count" id="pendingCount">0</span>
+        </div>
+        <div id="pendingProperties" class="admin-property-grid"></div>
+      </section>
+      <section class="admin-section">
+        <div class="section-header">
+          <div><h2>Approved Properties</h2><p>Manage user-submitted listings that are currently published.</p></div>
+          <span class="admin-count" id="approvedCount">0</span>
+        </div>
+        <div id="approvedProperties" class="admin-property-grid"></div>
+      </section>
+      <section class="admin-section">
+        <div class="section-header">
+          <div><h2>Rejected Properties</h2><p>Rejected submissions stay private and may be deleted.</p></div>
+          <span class="admin-count" id="rejectedCount">0</span>
+        </div>
+        <div id="rejectedProperties" class="admin-property-grid"></div>
+      </section>
+    </main>
+    <script src="/js/admin.js"></script>
+  </body>
+</html>

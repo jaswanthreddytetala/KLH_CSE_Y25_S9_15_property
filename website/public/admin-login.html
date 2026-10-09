@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login | Property Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+  </head>
+  <body class="admin-page">
+    <main class="admin-login-wrap">
+      <a class="admin-back-link" href="/">← Back to Property Finder</a>
+      <section class="admin-panel">
+        <span class="eyebrow">Property Finder</span>
+        <h1>Admin Login</h1>
+        <p>Sign in to review property submissions and manage published listings.</p>
+        <form id="adminLoginForm" class="form-shell">
+          <label>
+            Admin Password
+            <input type="password" name="password" autocomplete="current-password" required />
+          </label>
+          <button class="primary-btn" type="submit">Login</button>
+          <div id="loginMessage" class="form-status hidden" role="alert"></div>
+        </form>
+      </section>
+    </main>
+    <script src="/js/admin-login.js"></script>
+  </body>
+</html>

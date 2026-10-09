@@ -104,6 +104,13 @@ button {
   position: relative;
 }
 
+.main-nav .nav-link {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-weight: 600;
+}
+
 .main-nav a::after {
   content: '';
   position: absolute;
@@ -732,6 +739,17 @@ button {
   padding: 8px 0;
 }
 
+.listing-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.listing-form label:last-of-type,
+.listing-form button,
+.listing-form .form-status {
+  grid-column: 1 / -1;
+}
+
 .form-shell label {
   display: flex;
   flex-direction: column;
@@ -894,11 +912,17 @@ button {
   }
 
   .main-nav {
-    display: none;
+    display: flex;
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
   }
 
   .nav-actions {
-    display: none;
+    display: flex;
+    margin-left: auto;
   }
 }
 
@@ -928,5 +952,15 @@ button {
 
   .compare-grid {
     grid-template-columns: 1fr;
+  }
+
+  .listing-form {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-form label:last-of-type,
+  .listing-form button,
+  .listing-form .form-status {
+    grid-column: auto;
   }
 }
